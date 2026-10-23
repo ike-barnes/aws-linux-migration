@@ -1,0 +1,27 @@
+# Practice lab settings. Copy to lab.tfvars (git-ignored):
+#   terraform plan -var-file=lab.tfvars
+lab_mode    = true
+environment = "lab"
+region      = "us-east-1"
+repository  = "<your-github-user>/aws-linux-migration"
+
+vpc_cidr        = "10.60.0.0/16"
+azs             = ["us-east-1a", "us-east-1b"]
+private_subnets = ["10.60.0.0/20", "10.60.16.0/20"]
+public_subnets  = ["10.60.240.0/24", "10.60.241.0/24"]
+staging_subnets = ["10.60.200.0/24", "10.60.201.0/24"]
+
+# Your HOME public IP as /32 (MGN agents replicate from here on TCP 1500).
+# Find it: open https://checkip.amazonaws.com in a browser.
+onprem_cidrs       = ["203.0.113.10/32"]
+transit_gateway_id = null
+
+app_ingress_ports     = [80]
+default_instance_type = "t3.small"
+
+budget_email     = "you@example.com"
+budget_limit_usd = 30
+
+# If you are not using IAM Identity Center with a "MigrationEngineer" permission set,
+# allow your admin SSO role instead, e.g.:
+# mgn_installer_principal_pattern = "role/aws-reserved/sso.amazonaws.com/*AWSReservedSSO_AdministratorAccess_*"

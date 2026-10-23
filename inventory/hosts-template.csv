@@ -1,0 +1,4 @@
+hostname,ip_address,os,os_version,kernel,cpus,ram_gb,disk_gb,boot_mode,environment,application,app_owner,depends_on,business_criticality,disposition,wave,cutover_window,notes
+web01.corp.example.com,10.10.1.21,rhel,8.9,4.18.0-513.el8.x86_64,4,16,100,BIOS,prod,Customer Portal,Jane Doe,db01,high,rehost,wave2,2026-12-05 22:00 ET,example row - delete
+db01.corp.example.com,10.10.1.30,centos,7.9.2009,3.10.0-1160.el7.x86_64,8,32,500,BIOS,prod,Customer Portal,Jane Doe,,high,rehost-then-elevate,wave2,2026-12-05 22:00 ET,example row - delete
+build01.corp.example.com,10.10.2.15,ubuntu,22.04,5.15.0-119-generic,2,8,80,UEFI,dev,CI Runner,John Roe,,low,rehost,wave0,2026-11-14 18:00 ET,example row - delete

@@ -1,0 +1,3 @@
+bucket = "tfstate-<ACCOUNT_ID>-us-east-1"
+key    = "linux-aws-migration/prod/terraform.tfstate"
+region = "us-east-1"

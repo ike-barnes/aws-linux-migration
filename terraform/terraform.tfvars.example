@@ -1,0 +1,19 @@
+# Copy to terraform.tfvars (git-ignored) and fill in.
+region          = "us-east-1"
+environment     = "prod"
+repository      = "<org>/<repo>"
+vpc_cidr        = "10.60.0.0/16"
+azs             = ["us-east-1a", "us-east-1b"]
+private_subnets = ["10.60.0.0/20", "10.60.16.0/20"]
+public_subnets  = ["10.60.240.0/24", "10.60.241.0/24"]
+staging_subnets = ["10.60.200.0/24", "10.60.201.0/24"]
+
+onprem_cidrs       = ["10.10.0.0/16"]
+transit_gateway_id = "tgw-xxxxxxxxxxxxxxxxx"
+
+app_ingress_ports     = [443]
+default_instance_type = "m7i.large"
+
+# Prefer TF_VAR_rhel_org_id / TF_VAR_rhel_activation_key env vars over this file
+# rhel_org_id         = "<org-id>"
+# rhel_activation_key = "<activation-key-name>"

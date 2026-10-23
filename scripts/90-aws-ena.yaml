@@ -1,0 +1,49 @@
+# /etc/netplan/90-aws-ena.yaml
+# Ubuntu 22.04 LTS — post-AWS MGN cutover network config.
+#
+# Pre-stage on the SOURCE server before cutover. On-prem it matches nothing
+# (no 'ena' NIC exists), so it is inert. On EC2 the on-prem stanza (vmxnet3/
+# virtio/e1000, ens160/ens192/etc.) matches nothing and this file takes over.
+#
+# Install:  install -m 600 -o root -g root 90-aws-ena.yaml /etc/netplan/90-aws-ena.yaml
+#           netplan generate   # syntax check only; does not apply
+#
+# Nitro predictable names: primary ENI = ens5, secondary ENIs = ens6, ens7, ...
+# Do NOT configure static IPs here: pin the private IP on the ENI (MGN launch
+# template / Terraform) and let DHCP deliver it.
+
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    aws-primary:
+      match:
+        driver: ena
+        name: ens5
+      set-name: ens5
+      dhcp4: true
+      dhcp4-overrides:
+        route-metric: 100
+        use-dns: true          # Route 53 Resolver (VPC+2 / 169.254.169.253)
+        use-domains: true
+      dhcp6: false             # set true only if the subnet has IPv6 CIDR
+      optional: false
+      # Uncomment to override DHCP DNS with Route 53 Resolver outbound/inbound
+      # endpoints for on-prem name resolution during hybrid coexistence:
+      # nameservers:
+      #   addresses: [10.0.0.2]
+      #   search: [corp.example.com]
+
+    # Secondary ENIs (optional). Higher metric keeps the default route on ens5.
+    # For true multi-ENI policy routing, prefer letting cloud-init generate
+    # 50-cloud-init.yaml instead (see notes).
+    aws-secondary:
+      match:
+        driver: ena
+        name: "ens[6-9]*"
+      dhcp4: true
+      dhcp4-overrides:
+        route-metric: 200
+        use-dns: false
+      dhcp6: false
+      optional: true

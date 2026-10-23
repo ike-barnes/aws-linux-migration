@@ -1,0 +1,3 @@
+bucket = "tfstate-<MANAGEMENT_ACCOUNT_ID>-us-east-1"
+key    = "linux-aws-migration/org/scp.tfstate"
+region = "us-east-1"

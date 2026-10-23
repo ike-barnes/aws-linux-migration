@@ -1,0 +1,4 @@
+hostname,ip_address,os,os_version,kernel,cpus,ram_gb,disk_gb,boot_mode,environment,application,app_owner,depends_on,business_criticality,disposition,wave,cutover_window,notes
+app01.lab.local,192.168.56.40,ubuntu,22.04,<from collect-facts>,2,2,20,BIOS,lab,Static site (nginx),<you>,,low,rehost,wave0,<YYYY-MM-DD 19:00 ET>,pilot server
+web01.lab.local,192.168.56.21,rhel,9.x,<from collect-facts>,2,2,20,BIOS,lab,Visit counter (Apache+PHP),<you>,db01.lab.local:3306,medium,rehost,wave1,<YYYY-MM-DD 19:00 ET>,BYOL via Red Hat Developer Subscription
+db01.lab.local,192.168.56.30,centos,7.9.2009,<from collect-facts>,2,2,20,BIOS,lab,Visit counter DB (MariaDB),<you>,,medium,rehost-then-elevate,wave1,<YYYY-MM-DD 19:00 ET>,CentOS 7 EOL - ELevate to Rocky 8 after cutover
