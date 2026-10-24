@@ -147,7 +147,9 @@ fi
 
 # ---------- 4. All installed kernels (grub may boot a different one) ----------
 if [ "$FAMILY" = "el" ]; then
-  for k in $(ls /lib/modules 2>/dev/null); do
+  for kdir in /lib/modules/*/; do
+    [ -d "$kdir" ] || continue
+    k="$(basename "$kdir")"
     [ "$k" = "$KVER" ] && continue
     img="/boot/initramfs-${k}.img"
     [ -r "$img" ] || continue
